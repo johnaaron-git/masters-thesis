@@ -1,0 +1,188 @@
+%% packages
+
+% T1 fonts will be used to generate the final print and online PDFs,
+% use T1 fonts in your manuscript whenever possible
+\usepackage[T1]{fontenc}
+
+% Used for displaying a sample figure. Figure files should
+% be included in EPS format.
+\usepackage{graphicx}
+
+% Used for overlaying pictures on title page
+\usepackage[percent]{overpic}
+
+% Used to define new colors
+\usepackage[dvipsnames]{xcolor}
+
+\documentclass[10pt]{llncs}
+
+
+
+
+
+% Defines a new environment for acknowledgements.
+\newenvironment{acknowledgement}{%
+      \list{}{\advance\topsep by0.35cm\relax
+      \leftmargin=1cm
+      \labelwidth=0cm
+      \listparindent=0cm
+      \itemindent\listparindent
+      \rightmargin\leftmargin}\item[\hskip\labelsep
+        \bfseries\ackname]
+}
+
+\renewenvironment{abstract}{%
+      \list{}{\advance\topsep by0.35cm\relax
+      \leftmargin=1cm
+      \labelwidth=0cm
+      \listparindent=0cm
+      \itemindent\listparindent
+      \rightmargin\leftmargin}\item[\hskip\labelsep
+        \bfseries\abstractname]}
+% Overwrites environment for the abstract.
+
+\usepackage[nottoc,section]{tocbibind}
+\setcounter{tocdepth}{3}
+% Used to define table of contents.
+
+\usepackage{geometry}
+\geometry{
+  textwidth=12.2cm,  % llncs has 12.2cm
+  textheight=19.3cm, % llncs has 19.3cm
+  centering
+}
+% Used to define the margins of the pages.
+
+\pagestyle{headings}
+% Used for page numbering.
+
+\usepackage{hyperref}
+% Used for hyperlinking cross-referenced elements.
+
+\makeatletter
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+                       {-18\p@ \@plus -4\p@ \@minus -4\p@}%
+                       {12\p@ \@plus 4\p@ \@minus 4\p@}%
+                       {\normalfont\normalsize\bfseries\boldmath
+                        \rightskip=\z@ \@plus 8em\pretolerance=10000}}
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+                       {-18\p@ \@plus -4\p@ \@minus -4\p@}%
+                       {12\p@ \@plus 4\p@ \@minus 4\p@}%
+                        {\normalfont\normalsize\itshape
+                        \rightskip=\z@ \@plus 8em\pretolerance=10000}}
+\makeatother
+% Used for reformatting heading level 3 and 4
+
+
+\begin{document}
+%
+%Start
+\input{Content/_Titlepage.tex}
+
+\restoregeometry
+
+%
+% ---- Abstract ----
+%
+\normalsize\begin{abstract} \normalsize
+\input{Content/0_Abstract.tex}
+\end{abstract}
+\clearpage
+%
+\restoregeometry
+
+%
+% ---- Acknowledgements ----
+%
+\begin{acknowledgement} \input{Content/0_Acknowledgement.tex}
+\end{acknowledgement}
+\clearpage
+%
+%
+% ---- Table of contents ----
+%
+\tableofcontents
+
+\clearpage
+
+%
+% ---- Introduction ----
+%
+\section{Introduction} 
+\input{Content/1_Introduction.tex}
+\clearpage
+
+%
+% ---- Literature Review ----
+%
+\section{Literature Review}
+\input{Content/2_Literature Review.tex}
+
+\clearpage
+
+%
+% ---- Methodology ----
+%
+\section{Methodology}
+\input{Content/3_Methodology.tex}
+
+\clearpage
+
+%
+% ---- Results ----
+%
+\section{Results}
+\input{Content/4_Results.tex}
+
+\clearpage
+
+%
+% ---- Discussion ----
+%
+\section{Discussion \& Critical Reflection}
+\input{Content/5_DiscussionCriticalReflection.tex}
+
+\clearpage
+
+
+%
+% ---- Conclusion ----
+%
+\section{Conclusion}
+\input{Content/6_Conclusion.tex}
+
+\clearpage
+
+%
+% ---- Bibliography ----
+%
+% Add your references to the file 'mybibliography.bib'. Then cite the references with the following command: \cite.
+%
+% BibTeX users should specify bibliography style 'splncs04'.
+% References will then be sorted and formatted in the correct style.
+%
+%\bibliographystyle{splncs04}
+\bibliography{references} \label{references}
+%
+%
+\clearpage
+% ---- Appendices ----
+%
+\section*{Appendix}
+\addcontentsline{toc}{section}{Appendix}
+\input{Content/Appendix.tex}
+\clearpage
+
+%
+% ---- List of figures ----
+%
+\listoffigures
+\clearpage
+%
+% ---- List of tables ----
+%
+\listoftables
+
+\cleardoublepage
+
+\end{document}
