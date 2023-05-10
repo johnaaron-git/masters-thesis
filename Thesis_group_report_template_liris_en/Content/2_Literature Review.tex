@@ -20,15 +20,15 @@ The cost of false positives and false negatives in anomaly detection and fraud d
 \hline
 Paper &  Year & Technique & Explanability type & Learning\\
 \hline
-Rao et al.\cite{xfraud} &  2021 & xFraud & Perturbation & Supervised\\
-Qin et al.\cite{NGS} &  2022 & NGS  & Perturbation& Supervised\\
-Viloria et al.\cite{RAP} & 2021 & GNNExplainer & Perturbation& Supervised\\
- WU et al.\cite{DEDGAT}& 2023 & DEDGAT & Perturbation& Supervised\\
+Rao et al.\cite{rao_xfraud_2021} & 2021 & xFraud & Perturbation & Supervised\\
+Qin et al.\cite{qin_explainable_2022} & 2022 & NGS & Perturbation & Supervised\\
+Viloria et al.\cite{acevedo-viloria_relational_2021} & 2021 & GNNExplainer & Perturbation& Supervised\\
+ WU et al.\cite{wu_dedgat_2023}& 2023 & DEDGAT & Perturbation& Supervised\\
 \hline
 \end{tabular}
 \end{table}
 
-The success of perturbation in fraud detection and explanation is important to note. According to a study by GraphFrameX \cite{graphframex}, their systematic evaluation framework was tested on a production use case, which was to explain fraudulent transactions in the e-commerce scenario at eBay. The study only focused on explaining correct predictions and found that GNNexplainer was the most effective method, returning both sufficient and necessary explanations. Unlike other methods, GNNExplainer computes edge and node features importance independently when solving the optimization problem, which explains its superiority in this case. The study also revealed that perturbation-based methods outperformed structure-based and gradient-based methods in this particular production use case. 
+The success of perturbation in fraud detection and explanation is important to note. According to a study by GraphFrameX \cite{amara_graphframex_2022}, their systematic evaluation framework was tested on a production use case, which was to explain fraudulent transactions in the e-commerce scenario at eBay. The study only focused on explaining correct predictions and found that GNNexplainer was the most effective method, returning both sufficient and necessary explanations. Unlike other methods, GNNExplainer computes edge and node features importance independently when solving the optimization problem, which explains its superiority in this case. The study also revealed that perturbation-based methods outperformed structure-based and gradient-based methods in this particular production use case. 
 
 It is dangerous to solely rely on supervised techniques for anomaly detection with GNNs (Graph Neural Networks) because these models are only as good as the data they are trained on. Supervised techniques require labeled data, which means data with a clear indication of what is anomalous and what is not. However, in many cases, anomalous data may not be present in the training data, making it difficult for the model to accurately identify anomalous data in the real world. Unsupervised fraud detection and explanation using GNN in static graph is very challenging but would yield interesting results.
 
@@ -38,7 +38,7 @@ Note these paper are fraud specific but other broader anomaly detection techniqu
 
 In addition to topological and feature information, temporal data is also present in dynamic graphs. This can be very informative but is chanllenging to use. To address this challenge, dynamic GNNs typically use temporal convolutions, recurrent neural networks (RNNs), or attention mechanisms to incorporate temporal information into the model. These techniques allow the model to capture the temporal dependencies between nodes and to predict future states of the graph.
 
-Pytorch geometric temporal (PyGT) \cite{rozemberczki2021pytorch} is an open-source library built on top of PyTorch Geometric, which is a popular library for deep learning on graphs. PyGT extends the capabilities of PyTorch Geometric to temporal graphs by providing a set of modules that enable the handling of graph sequences, i.e., a series of graphs that evolve over time. These modules allow for the creation of neural network models that can learn temporal patterns in the graph sequences, enabling tasks such as node classification, link prediction, and graph classification.
+Pytorch geometric temporal (PyGT) \cite{rozemberczki_pytorch_2021} is an open-source library built on top of PyTorch Geometric, which is a popular library for deep learning on graphs. PyGT extends the capabilities of PyTorch Geometric to temporal graphs by providing a set of modules that enable the handling of graph sequences, i.e., a series of graphs that evolve over time. These modules allow for the creation of neural network models that can learn temporal patterns in the graph sequences, enabling tasks such as node classification, link prediction, and graph classification.
 
 
 \begin{table}
@@ -47,9 +47,9 @@ Pytorch geometric temporal (PyGT) \cite{rozemberczki2021pytorch} is an open-sour
 \hline
 Paper &  Year & Technique & detection & code & Learning\\
 \hline
-Zheng et al.\cite{addGraph} & 2019 & addGraph & edge & yes & semi-supervised\\
-Li et al.\cite{dynWatch} & 2022 & DynWatch  & edge & yes & supervised\\
-Jiang et al.\cite{TSAD} & 2022 & TSAD & community & no & supervised\\
+Zheng et al.\cite{zheng_addgraph_2019} & 2019 & addGraph & edge & yes & semi-supervised\\
+Li et al.\cite{li_dynamic_2022} & 2022 & DynWatch  & edge & yes & supervised\\
+Jiang et al.\cite{jiang_two-stage_2022} & 2022 & TSAD & community & no & supervised\\
 & & TADDY &  & & \\
  & & T2EG &  & & \\
  & & DyHGN &  & & \\
@@ -61,7 +61,7 @@ Jiang et al.\cite{TSAD} & 2022 & TSAD & community & no & supervised\\
 \end{tabular}
 \end{table}
 
-This is not a comprehensive list since there is too many papers on the topic. However survey on Anomaly detection in dynamic graphs with a clear structure would be of great help to the current literature. Some sureys like https://arxiv.org/pdf/2209.14930.pdf or https://www.sciencedirect.com/science/article/pii/S0166361521001056 did a partial work in the huge sorting problem that a global survey on GNN anomlay detection in dynamic graph would be.
+This is not a comprehensive list since there is too many papers on the topic. However survey on Anomaly detection in dynamic graphs with a clear structure would be of great help to the current literature. Some surveys like https://arxiv.org/pdf/2209.14930.pdf or https://www.sciencedirect.com/science/article/pii/S0166361521001056 did a partial work in the huge sorting problem that a global survey on GNN anomlay detection in dynamic graph would be.
 
 Note these paper are anomaly specific but other broader classification technique like EvolveGCN\cite{egcn} can also work for anomaly detection in dynamic graphs.
 
@@ -69,13 +69,11 @@ Note these paper are anomaly specific but other broader classification technique
 Explanation in static graphs is already widely explored. The following 4 surveys provide a comprehensive overview of the state-of-the-art in explainability methods for static graphs, with a focus on GNNs. They propose taxonomies and frameworks for evaluating and comparing different methods, and highlight the open research questions in the field.
 
 \begin{itemize}
-    
-    \item Trustworthy GNN: aspects, methods and trends\cite{trustworthy} elaborate six aspects of trust in GNN. Robustness, explainability, privacy, fairness, accountability, and environmental well-being.
-    \item Explainability in GNN: A taxonomic survey \cite{expl_survey} provide a branching for post-hoc explainers. It finds 5 categories: Gradient, Perturbation, Decomposition, Surrogate and Generation.
-    \item GraphFramEx: Towards systematic evaluation of explainability methods for GNN\cite{graphframex} propose a structured way of evaluation explainers for node classificatin problems. The paper propose a Characterization score (weighted harmonic mean of fid+ and Fid-) for explanation evaluation.
-    \item An explainable AI library for benchmarking graph explainers\cite{explainable_AI} benchmarks explainers based on ground truth explanation.
-
-\end{itemize}
+    \item Trustworthy GNN: aspects, methods and trends \cite{dai_comprehensive_2022} elaborate six aspects of trust in GNN. Robustness, explainability, privacy, fairness, accountability, and environmental well-being.
+    \item Explainability in GNN: A taxonomic survey \cite{yuan_explainability_2023} provide a branching for post-hoc explainers. It finds 5 categories: Gradient, Perturbation, Decomposition, Surrogate and Generation.
+    \item GraphFramEx: Towards systematic evaluation of explainability methods for GNN \cite{amara_graphframex_2022} propose a structured way of evaluation explainers for node classificatin problems. The paper propose a Characterization score (weighted harmonic mean of fid+ and Fid-) for explanation evaluation.
+    \item An explainable AI library for benchmarking graph explainers \cite{agarwal_explainable_2022} benchmarks explainers based on ground truth explanation.
+\end{itemize} 
 
 
 \subsection{GNN Predicition and Explanation in dynamic graphs}

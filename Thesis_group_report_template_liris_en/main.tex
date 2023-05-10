@@ -1,26 +1,22 @@
-%% packages
-
-% T1 fonts will be used to generate the final print and online PDFs,
-% use T1 fonts in your manuscript whenever possible
-\usepackage[T1]{fontenc}
-
-% Used for displaying a sample figure. Figure files should
-% be included in EPS format.
-\usepackage{graphicx}
-
-% Used for overlaying pictures on title page
-\usepackage[percent]{overpic}
-
-% Used to define new colors
-\usepackage[dvipsnames]{xcolor}
-
 \documentclass[10pt]{llncs}
 
+% T1 fonts used to generate the final print and online PDFs
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{graphicx}
 
+% uncomment these if using hyperref package to display URLs in blue roman font
+%\usepackage{color}
+%\renewcommand\UrlFont{\color{blue}\rmfamily}
 
+% picture overlay (title page)
+\usepackage[percent]{overpic}
 
+\usepackage[nottoc,section]{tocbibind}
 
-% Defines a new environment for acknowledgements.
+% define new colors
+\usepackage[dvipsnames]{xcolor}
+
 \newenvironment{acknowledgement}{%
       \list{}{\advance\topsep by0.35cm\relax
       \leftmargin=1cm
@@ -28,8 +24,8 @@
       \listparindent=0cm
       \itemindent\listparindent
       \rightmargin\leftmargin}\item[\hskip\labelsep
-        \bfseries\ackname]
-}
+        \bfseries\ackname]}
+% Defines a new environment for acknowledgements.
 
 \renewenvironment{abstract}{%
       \list{}{\advance\topsep by0.35cm\relax
@@ -41,11 +37,9 @@
         \bfseries\abstractname]}
 % Overwrites environment for the abstract.
 
-\usepackage[nottoc,section]{tocbibind}
 \setcounter{tocdepth}{3}
 % Used to define table of contents.
 
-\usepackage{geometry}
 \geometry{
   textwidth=12.2cm,  % llncs has 12.2cm
   textheight=19.3cm, % llncs has 19.3cm
@@ -94,7 +88,7 @@
 %
 % ---- Acknowledgements ----
 %
-\begin{acknowledgement} \input{Content/0_Acknowledgement.tex}
+\begin{acknowledgement} \input{Content/0_Acknowledgements.tex}
 \end{acknowledgement}
 \clearpage
 %
@@ -140,7 +134,7 @@
 % ---- Discussion ----
 %
 \section{Discussion \& Critical Reflection}
-\input{Content/5_DiscussionCriticalReflection.tex}
+\input{Content/5_Discussion and Critical Reflections.tex}
 
 \clearpage
 
@@ -160,9 +154,8 @@
 %
 % BibTeX users should specify bibliography style 'splncs04'.
 % References will then be sorted and formatted in the correct style.
-%
-%\bibliographystyle{splncs04}
-\bibliography{references} \label{references}
+\bibliographystyle{splncs04}
+\bibliography{Thesis_group_report_template_liris_en/bibliography-zotero} \label{references}
 %
 %
 \clearpage
@@ -170,7 +163,7 @@
 %
 \section*{Appendix}
 \addcontentsline{toc}{section}{Appendix}
-\input{Content/Appendix.tex}
+\input{Content/7_Appendix.tex}
 \clearpage
 
 %
