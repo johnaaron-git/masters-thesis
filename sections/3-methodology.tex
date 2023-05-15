@@ -1,0 +1,7 @@
+Our basis for defining the framework organizing this survey was a mixture of past precedent, novelty, and perceived usefulness. To furnish this framework, we developed selection criteria, a taxonomy for classification and organization, and metrics to evaluate each explainer.
+
+\subsection{Criteria}
+To be considered an explainable algorithm, all methods included must be post-hoc. By definition, explainability models must act as an after-the-fact layer running on top of a black-box machine learning model. Each explainer must examine an underlying model and output after results are generated. This helps researchers distinguish black-box explainers from both interpretation models and graph analysis models designed with inherent introspection. Integration of temporal features is a compatibility requirement; there is limited value in single-graph explanations independent of time-varying features, and those explainers are surveyed elsewhere.
+
+\subsection{Taxonomy}
+This survey distinguishes between precursor explainability technique and the dynamic modifications added to accommodate temporal features or dynamic nodes/edges. We also make an effort to note whether explanation algorithms are generalized, or must be tightly-coupled to the underlying analysis model.

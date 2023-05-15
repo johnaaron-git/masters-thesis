@@ -1,0 +1,132 @@
+\documentclass[10pt]{llncs}
+%% packages
+\usepackage{color}
+\usepackage[T1]{fontenc}                % T1 fonts
+\usepackage{geometry}                   % page formatting
+\usepackage{graphicx}                   % figures in EPS format
+\usepackage{hyperref}                   % hyperlink cross-references
+\usepackage{indentfirst}                % override indent bhvr
+\usepackage[percent]{overpic}           % overlay pictures
+\usepackage[figuresright]{rotating}     % rotate tables
+\usepackage[nottoc,section]{tocbibind}  % auto adds sections to ToC
+\usepackage[dvipsnames]{xcolor}         % define new colors
+
+%% config
+\pagestyle{headings}        % page numbering
+\setcounter{tocdepth}{3}    % table of contents truncation
+
+% blue URLs in roman font
+\renewcommand\UrlFont{\color{blue}\rmfamily}
+
+% page margins
+\geometry{
+  textwidth=12.2cm,  % llncs has 12.2cm
+  textheight=19.3cm, % llncs has 19.3cm
+  centering
+}
+
+% new acknowledgements environment
+\newenvironment{acknowledgement}{
+    \list{}{\advance\topsep by0.35cm\relax
+    \leftmargin=1cm
+    \labelwidth=0cm
+    \listparindent=0cm
+    \itemindent\listparindent
+    \rightmargin\leftmargin}\item[\hskip\labelsep
+    \bfseries\ackname]
+}
+
+% overwrites environment for abstract
+\renewenvironment{abstract}{
+    \list{}{\advance\topsep by0.35cm\relax
+    \leftmargin=1cm
+    \labelwidth=0cm
+    \listparindent=0cm
+    \itemindent\listparindent
+    \rightmargin\leftmargin}\item[\hskip\labelsep
+    \bfseries\abstractname]
+}
+
+% reformat heading level 3 and 4
+\makeatletter % changes catcode of @ to 11
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}
+    {-18\p@ \@plus -4\p@ \@minus -4\p@}
+    {12\p@ \@plus 4\p@ \@minus 4\p@}
+    {\normalfont\normalsize\bfseries\boldmath
+    \rightskip=\z@ \@plus 8em\pretolerance=10000}
+}
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}
+    {-18\p@ \@plus -4\p@ \@minus -4\p@}
+    {12\p@ \@plus 4\p@ \@minus 4\p@}
+    {\normalfont\normalsize\itshape
+    \rightskip=\z@ \@plus 8em\pretolerance=10000}
+}
+\makeatother % changes catcode of @ back to 12
+
+%% document layout
+\begin{document}
+
+% ---- Title page ----
+\input{sections/0-titlepage}
+\restoregeometry
+
+% ---- Abstract ----
+\normalsize\begin{abstract} \normalsize
+\input{sections/1-abstract}
+\end{abstract}
+\clearpage
+\restoregeometry
+
+% ---- Acknowledgements ----
+%\begin{acknowledgement}
+%\input{sections/1-acknowledgements}
+%\end{acknowledgement}
+%\clearpage
+
+% ---- Table of Contents ----
+\tableofcontents
+\clearpage
+
+% ---- Introduction ----
+\section{Introduction} 
+\input{sections/1-introduction}
+
+% ---- Literature Review ----
+\section{Literature Review}
+\input{sections/2-literature-review}
+
+% ---- Methodology ----
+\section{Methodology}
+\input{sections/3-methodology}
+
+% ---- Results ----
+\section{Results, A Survey on Explanation in Dynamic graphs}
+\input{sections/4-results}
+
+% ---- Discussion ----
+\section{Discussion \& Critical Reflection}
+\input{sections/5-discussion-and-critical-reflections}
+
+% ---- Conclusion ----
+\section{Conclusion}
+\input{sections/6-conclusion}
+\clearpage
+
+% ---- Bibliography ----
+\bibliographystyle{splncs04}
+\bibliography{bibliography-zotero} \label{references}
+
+% ---- Appendices ----
+\appendix
+\section*{Appendix}
+\addcontentsline{toc}{section}{Appendix}
+\input{sections/7-appendix}
+\clearpage
+
+% ---- List of figures ----
+\listoffigures
+
+% ---- List of tables ----
+\listoftables
+
+\end{document}

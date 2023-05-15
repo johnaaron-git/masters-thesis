@@ -1,0 +1,115 @@
+\noindent Our review focuses on anomaly detection and explanation in dynamic graphs, and is divided into four parts:
+\begin{itemize}
+    \item Static graph anomaly detection techniques for fraud
+    \item Dynamic graph anomaly detection techniques for fraud
+    \item Static graph explainability methods
+    \item Dynamic graph explainability methods
+\end{itemize}
+
+This division is attributed to a deviation in the original purpose of our research: exploring explainability in the context of anomaly detection in dynamic graphs for fraud detection. We found limited literature available for this specific niche, necessitating the split into distinct parts. \textbf{Knowledge graphs aren't included} in this paper due to their more structured nature and intrinsic interpretability.
+
+\subsection{Static Graph Fraud Anomaly Detection}
+Anomaly (outlier) detection methodology is distinct from other graph analysis tasks like classification or link prediction due to underlying problems they solve. Classification seeks to assign labels and categories to nodes and edges based on the model's understanding of individual properties and its own decision boundaries. It involves understanding each underlying datum, but isn't trained on the basis of deviation from patterns. Link prediction also uses structure analysis and similarity measures, but is fundamentally a forward-looking process \((t+1)\). Instead, anomaly detection models seek to identify outlier events and patterns based on already-classified, already-linked data. Even in live data, this process is operating at \((t\le0)\), where \(0\) represents real-time.
+
+Anomaly detection also imposes its own set of constraints: since anomalies are implicitly rare or unexpected, they may not be well-represented in training data. This means detection algorithms need to be designed for limited or incomplete data and remain robust when dealing with noisy or unreliable data.
+
+\textbf{Libraries} like Pytorch Geometric (PyG)\cite{pyg_team_pyg_nodate} and Python Graph-based Outlier Detection (PyGoD)\cite{liu_pygod-teampygod_2023} attempt to provide simplified tooling for researchers seeking to develop machine learning algorithms under these more specific conditions. All major frameworks mentioned are actively developed as third-party libraries in Python, building on top of the popular PyTorch\cite{chintala_pytorchpytorch_nodate} suite of machine learning analysis tools. These libraries help enforce consistency and reproducibility across experiments by merging datasets and models into custom data structures that can be manipulated through generic machine learning functions with models passed as arguments. Meta-libraries like Dive into Graphs (DiG)\cite{dive_lab_dig_nodate} have also gained popularity due their to inclusion of graph generation and visualization tools.
+
+\textbf{Fraud detection} exists as a subset of anomaly detection, related but with its own distinct problems. In fraud detection \textit{camouflage} is considered as the norm\cite{liu_contrast_2019}. Camouflage is a technique used by fraudsters to hide their fraudulent activities. For example, a fraudster may try to hide their fraudulent transactions in a network by masking them to appear similar to legitimate transactions. This camouflaging behavior can cause false positives and false negatives in fraud detection systems. A false positive occurs when a normal data point is flagged as anomalous or fraudulent, while a false negative occurs when an anomalous or fraudulent data point is not flagged. The cost of either can be significant, as false positives lead to unnecessary investigations or actions while false negatives can result in missed opportunities to detect and prevent fraud. The magnitude of this cost will depend on the specific application and context.
+
+While large catalogues like Ma et al.\cite{ma_comprehensive_2021} and Dou et al.\cite{dou_safe-graphdgfraud_2023} cover both anomaly detection and fraud-applicable methods separately, this small survey may be the first available on fraud-specific detection and static graph explanation explanation.
+
+\begin{table}
+    \caption{GNN Fraud detection and explanability in static graphs}
+    \label{table-1}
+    \centering
+    \begin{tabular}{|l|l|l|l|l|}
+        \hline Paper &  Year & Technique & Explanability type & Learning \\ \hline
+        Rao et al.\cite{rao_xfraud_2021} & 2021 & xFraud & Perturbation & Supervised\\
+        Qin et al.\cite{qin_explainable_2022} & 2022 & NGS & Perturbation & Supervised\\
+        Viloria et al.\cite{acevedo-viloria_relational_2021} & 2021 & GNNExplainer & Perturbation& Supervised\\
+         Wu et al.\cite{wu_dedgat_2023}& 2023 & DEDGAT & Perturbation& Supervised\\
+        \hline
+    \end{tabular}
+\end{table}
+
+The prominence of perturbation as an explanability type for fraud detection and explanation in Table \ref{table-1} can be intuited from similar performance in Amara et al.\cite{amara_graphframex_2022}'s GraphFrameX survey; their systematic evaluation framework was tested in production to explain fraudulent transactions in e-commerce at eBay. The test focused only on explaining \textit{correct} predictions and instead identified GNNexplainer as the most effective method. Both algorithms identify influential neighbors by modifying graph structure, but unlike other methods, GNNExplainer is able to compute edge and node feature importance independently when solving its internal optimization problem. This gave it an edge in accuracy over the other methods tested. The study also revealed that behind GNNExplainer, perturbation-based methods outperformed structure-based and gradient-based methods for this production case. 
+
+It is dangerous to rely solely on supervised techniques for anomaly detection with graph neural networks (GNNs) because these models are only as good as the data they are trained on. Supervised techniques require labeled data, clearly indicating what is anomalous and what is not. In many cases, these labels are not present in the training data, making it difficult for models to generalize performance for real-world situations and accurately identify anomalous data. This suggests a need for unsupervised fraud detection and explanation using GNNs in static graphs; a very challenging application that could yield interesting results.
+
+Note that these papers are fraud-specific, but other application-agnostic anomaly detection techniques should be valid for use in fraud detection.
+
+\subsection{Dynamic Graph Fraud Anomaly Detection}
+Dynamic graphs extend the qualities of the static graphs mentioned above with temporal information. Unlike topological and descriptive features, temporal features can be very challenging to use. To address this, dynamic GNNs typically use temporal convolutions, recurrent neural networks (RNNs), or attention mechanisms to incorporate temporal information into their model\cite{ma_comprehensive_2021}. These techniques allow GNNs to capture time-varying dependencies between nodes to help predict future state within graphs.
+
+The data structures used for storing dynamic graphs and their features vary. Dynamic graphs may benefit from malleable, mutable data structures like hash tables or linked lists instead of PyTorch's tensors\cite{fallenvalkyrie_tensors_2021}. In an effort to continue to abstract this complexity away and extend the existing frameworks to accomodate temporal graphs, Pytorch Geometric Temporal (PyGT)\cite{rozemberczki_pytorch_2021} acts as a library built on a library (PyG) built on a library (PyTorch).  PyGT  accomplishes this by providing a set of modules that handle temporal graph snapshots in sequence. In theory, these modules allow for the creation of formation-agnostic neural network models for temporal node classification, link prediction, and graph classification. 
+
+\begin{table}
+    \caption{Anomaly detection in dynamic graphs}
+    \label{table-2}
+    \begin{tabular}{|l|l|l|l|l|l|l|}
+        \hline Paper &  Year & Technique & Detection & Code & Learning & Application \\ \hline
+        Zheng et al.\cite{zheng_addgraph_2019} & 2019 & addGraph & Edge & Yes & Semi-supervised & Social\\
+        Li et al.\cite{li_dynamic_2022} & 2022 & DynWatch  & Edge & yes & Supervised & Electrical Grid\\
+        Jiang et al.\cite{jiang_two-stage_2022} & 2022 & TSAD & Community & No & Supervised & Communication\\
+        Liu et al.\cite{liu_anomaly_2021}& 2021 & TADDY & Yes & Node & Unsupervised & Communication/Bitcoin\\
+        Kim et al.\cite{kim_temporal_2022} & 2022 & T2EG & Node & No & Supervised & Retail \\
+        Rao et al.\cite{rao_modelling_2022} & 2022 & DyHGN & Node & No & Supervised & Fraud \\
+        Cai et al.\cite{cai_structural_2020} & 2020 & StrGNN & Edge & Yes & Supervised & Communication/Bitcoin\\
+        Zhu et al.\cite{zhu_flexible_2020} & 2020 & DynAD & Edge & No & Supervised & Communication \\
+        \hline
+    \end{tabular}
+\end{table}
+
+This is not a comprehensive list, as there is an abundance of papers for general anomaly detection adapted or designed for dynamic graphs. However, additional surveys on anomaly detection in dynamic graphs with clearer structure akin to Ma et. al{\cite{ma_comprehensive_2021} would be helpful when evaluating models for fraud explainability. Some surveys like \cite{kim_graph_2022} or \cite{lindemann_survey_2021} do attempt to partially address the sorting problem that a true global survey on GNN anomaly detection methods in dynamic graphs would solve. When consulting these surveys, it's interesting to note that there are few benchmark datasets relative to the high number of models available.
+
+The papers above are anomaly-specific, but other broader classification techniques like EvolveGCN\cite{pareja_evolvegcn_2019} can also work for anomaly detection in dynamic graphs.
+
+\subsection{Static Graph Explanation}
+Explanation in static graphs is well-documented. The following 4 surveys provide a comprehensive overview of the state-of-the-art in explainability methods for static graphs, with a focus on GNNs. They propose taxonomies and frameworks for evaluating and comparing different methods, and highlight the open research questions in the field.
+
+\begin{itemize}
+    \item Trustworthy GNN: Aspects, Methods and Trends\cite{zhang_trustworthy_2022} elaborates six aspects of trust in GNN: robustness, explainability, privacy, fairness, accountability, and environmental well-being.
+    \item Explainability in GNN: A Taxonomic Survey\cite{yuan_explainability_2023} provides branching for post-hoc explainers. It uses 5 categories: gradient, perturbation, decomposition, surrogate and generation.
+    \item GraphFramEx: Towards Systematic Evaluation of Explainability Methods for GNNs\cite{amara_graphframex_2022} proposes a structured way to evaluate explainers for node classification problems. The paper proposes a characterization score (weighted harmonic mean of Fid+ and Fid-) for explanation evaluation.
+    \item An explainable AI library for benchmarking graph explainers\cite{agarwal_explainable_2022} benchmarks explainers based on ground truth explanation.
+\end{itemize} 
+
+\subsection{Dynamic Graph Explanation}
+Compared to static GNNs, dynamic GNNs (dGNN) require additional considerations with regards to explainability. Dynamic GNNs operate on time-evolving or sequential graph data, where the underlying graph structure or node/edge features change over time. This encodes the temporal dimensions, but makes the explainability process more complex. Some challenges specific to dynamic GNN explainability are:
+\begin{itemize}
+    \item Temporal dependencies: Dynamic GNNs capture temporal dependencies, which means the influence of past states affects the current state. Explaining how a dynamic GNN arrives at a particular decision requires understanding the temporal flow of information and its impact on the final output.
+    \item Variable-length sequences: Dynamic GNNs process sequences of varying lengths, as graph structure may change over time. Explaining decisions made at different time steps and aligning them with the corresponding elements of the input sequence may be challenging.
+    \item Explainability across time: In dynamic GNNs, explanations need to account for changes in node/edge importance over time. Explaining how a GNN's attention or weights evolve across time steps can provide insights into the model's decision-making process, but requires specific configuration.
+\end{itemize}
+
+To address these challenges, the explanation of dynamic GNNs is typically approached via the following methods:
+
+\begin{itemize}
+    \item Temporal attention mechanisms: Attention mechanisms can be employed to highlight the important nodes/edges at each time step, providing insights into the model's decision process. Temporal attention weights can indicate which parts of each graph the underlying model focuses on at different time steps. Attention can then be used to enhance the prediction accuracy, but is unable to capture the true feature importance\cite{serrano_is_2019}.
+    \item Sequence alignment techniques: By aligning the explanations with the corresponding elements of the input sequence, it becomes possible to understand the relationship between changes in the graph structure or features and the model's decisions. This is the most common way to do post-hoc explainability.
+    \item Visualization techniques: Rendering the evolution of the graph structure or node/edge features over time while monitoring internal state can show information flow to provide intuition into what influences decisions being made.
+\end{itemize}
+
+\begin{table}
+    \caption{GNN Prediction and Explanation in dynamic graphs. See Appendix \ref{table-3-full} for non-truncated version}
+    \label{table-3-truncated}
+    \centering
+    \begin{tabular}{|l|l|l|l|l|l|l|l|l|}
+        \hline Paper & Year & Technique & Technique class & Explanation & Black Box* (...)\\ \hline
+        Ye et al.\cite{ye_explainable_2023} & 2023 & BrainNetX & Gradient(SA) & Node & STpGCN \\
+        He et al.\cite{he_explainer_2022} & 2022 & TGNNExplainer & Surrogate(PGM) & Subgraph & TGNN \\
+        Limeros et al.\cite{limeros_towards_2022} & 2022 & XHGP & Perturbation(counterfactual) & Interaction & GAT-GRU \\
+        Xie et al.\cite{xie_explaining_2022} & 2022 & DGExplainer & Decomposition(LRP) & Features & GCN-GRU \\
+        Fan et al.\cite{fan_gcn-se_2021} & 2022 & Interpretability & Attention & Snapshot & GCN-SE \\
+        Yao et al.\cite{yao_interpretable_2021} & 2021 & Interpretability & Decay rate & Edge & RNN-GCN \\
+        Yang et al.\cite{yang_fraudmemory_2019} & 2019 & Interpretability & Sub Scores & Time & FraudMemory \\
+        \hline
+    \end{tabular}
+\end{table}
+
+We found no existing libraries nor surveys on explanation in dynamic graphs, and consider this a preliminary first attempt. Table \ref{table-3-full} represents a comprehensive list of explainable or interpretable GNN models for dynamic and temporal graphs. The table distinguishes prediction models (black box and task) from explainers (technique and explanation). For interpretability, no post-hoc explainer is used and the technique column is marked accordingly. The technique class column refers to the explainability survey\cite{yuan_explainability_2023} described in section 2.3.  Explanation can also be understood as importance, given that explanation predicts which input were important to a model's output: \(explanation = node\) means that importance of neighbouring nodes are calculated.
+
+All explainers in Table \ref{table-3-full} are instance-based, meaning they explain one prediction or classification at a time. We found no interpreted nor explained models for GNNs in dynamic graphs. This might be a future direction for later research, but we don't expect good explanations from model-based explainers in this context. Even in static graphs, explaining all GNN decisions at once is tedious and uncommon. XGNN\cite{yuan_XGNN_2020} is one of the only papers that attempts this. With dynamic graphs, the difficulty grows linearly with each extra snapshot. Instead of focusing on the whole model, snapshot-based explainability could be further developed.
+
+The papers in Table \ref{table-3-full} are further detailed in section 4.2.
