@@ -20,7 +20,7 @@ Anomaly detection also imposes its own set of constraints: since anomalies are i
 While large catalogues like Ma et al.\cite{ma_comprehensive_2021} and Dou et al.\cite{dou_safe-graphdgfraud_2023} cover both anomaly detection and fraud-applicable methods separately, this small survey may be the first available on fraud-specific detection and static graph explanation explanation.
 
 \begin{table}
-    \caption{GNN Fraud detection and explanability in static graphs}
+    \caption{GNN Fraud detection and explainability in static graphs}
     \label{table-1}
     \centering
     \begin{tabular}{|l|l|l|l|l|}
@@ -33,7 +33,7 @@ While large catalogues like Ma et al.\cite{ma_comprehensive_2021} and Dou et al.
     \end{tabular}
 \end{table}
 
-The prominence of perturbation as an explanability type for fraud detection and explanation in Table \ref{table-1} can be intuited from similar performance in Amara et al.\cite{amara_graphframex_2022}'s GraphFrameX survey; their systematic evaluation framework was tested in production to explain fraudulent transactions in e-commerce at eBay. The test focused only on explaining \textit{correct} predictions and instead identified GNNexplainer as the most effective method. Both algorithms identify influential neighbors by modifying graph structure, but unlike other methods, GNNExplainer is able to compute edge and node feature importance independently when solving its internal optimization problem. This gave it an edge in accuracy over the other methods tested. The study also revealed that behind GNNExplainer, perturbation-based methods outperformed structure-based and gradient-based methods for this production case. 
+The prominence of perturbation for fraud detection and explanation in Table \ref{table-1} can be intuited from similar performance in Amara et al.\cite{amara_graphframex_2022}'s GraphFrameX survey; their systematic evaluation framework was tested in production to explain fraudulent transactions in e-commerce at eBay. The test focused only on explaining \textit{correct} predictions and instead identified GNNexplainer as the most effective method. Both algorithms identify influential neighbors by modifying graph structure, but unlike other methods, GNNExplainer is able to compute edge and node feature importance independently when solving its internal optimization problem. This gave it an edge in accuracy over the other methods tested. The study also revealed that behind GNNExplainer, perturbation-based methods outperformed structure-based and gradient-based methods for this production case. 
 
 It is dangerous to rely solely on supervised techniques for anomaly detection with graph neural networks (GNNs) because these models are only as good as the data they are trained on. Supervised techniques require labeled data, clearly indicating what is anomalous and what is not. In many cases, these labels are not present in the training data, making it difficult for models to generalize performance for real-world situations and accurately identify anomalous data. This suggests a need for unsupervised fraud detection and explanation using GNNs in static graphs; a very challenging application that could yield interesting results.
 
@@ -50,9 +50,9 @@ The data structures used for storing dynamic graphs and their features vary. Dyn
     \begin{tabular}{|l|l|l|l|l|l|l|}
         \hline Paper &  Year & Technique & Detection & Code & Learning & Application \\ \hline
         Zheng et al.\cite{zheng_addgraph_2019} & 2019 & addGraph & Edge & Yes & Semi-supervised & Social\\
-        Li et al.\cite{li_dynamic_2022} & 2022 & DynWatch  & Edge & yes & Supervised & Electrical Grid\\
+        Li et al.\cite{li_dynamic_2022} & 2022 & DynWatch  & Edge & Yes & Supervised & Electrical Grid\\
         Jiang et al.\cite{jiang_two-stage_2022} & 2022 & TSAD & Community & No & Supervised & Communication\\
-        Liu et al.\cite{liu_anomaly_2021}& 2021 & TADDY & Yes & Node & Unsupervised & Communication/Bitcoin\\
+        Liu et al.\cite{liu_anomaly_2021}& 2021 & TADDY & Node & Yes & Unsupervised & Communication/Bitcoin\\
         Kim et al.\cite{kim_temporal_2022} & 2022 & T2EG & Node & No & Supervised & Retail \\
         Rao et al.\cite{rao_modelling_2022} & 2022 & DyHGN & Node & No & Supervised & Fraud \\
         Cai et al.\cite{cai_structural_2020} & 2020 & StrGNN & Edge & Yes & Supervised & Communication/Bitcoin\\
